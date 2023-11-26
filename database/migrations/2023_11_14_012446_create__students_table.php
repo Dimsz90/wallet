@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('image');
+            $table->unsignedInteger('user_id');
+            $table->string('image')->nullable();
             $table->string('alamat');
             $table->string('kelas');
             $table->string('phone');
             $table->timestamps();
         });
+
 
     }
 

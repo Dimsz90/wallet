@@ -23,7 +23,8 @@
                             @forelse ($students as $student)
                             
                             <tr>
-                                <td>{{$student->name}}</td>
+                                
+                                <td>{{$student->user->name}}</td>
                                 <td>{{$student->alamat}}</td>
                                <td> <img src="{{url('images/'.$student->image)}}" width="150px" ></td>
                                 <td>{{$student->phone}}</td>

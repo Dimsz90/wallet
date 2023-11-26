@@ -7,12 +7,12 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Form create months</h3>
-                    <form action="{{route('students.update', $student->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('students.update', $student->user)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" name="name" id="" value="{{$student->name}}" class="form-control">
+                            <input type="text" name="name" id="" value="{{$student->user->name}}" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Adress</label>

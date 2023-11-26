@@ -5,10 +5,11 @@ Use App\Http\Controllers\StudentController;
 Use App\Http\Controllers\MonthController;
 Use App\Http\Controllers\SavingController;
 Use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
+|---------------------------------------Web Routes-----------------------------------
+| 
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -53,10 +54,19 @@ Route::group(['prefix','withdrawals'], function(){
     route::post('store/{saving}',[TransactionController::class,'store'])->name('withdrawals.store');
     
 });
+Route::group(['prefix'=>'users'], function(){
+    route::get('/',[UserController::class,'index'])->name('users');
+    route::get('/create',[UserController::class,'create'])->name('users.create');
+    route::post('/store',[UserController::class,'store'])->name('users.store');
+});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

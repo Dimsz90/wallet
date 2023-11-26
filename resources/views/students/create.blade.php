@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Form create months</h3>
+                    <h3>Form create </h3>
                     <form action="{{route('students.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

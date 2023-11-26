@@ -68,6 +68,11 @@ class StudentController extends Controller
         }else{
             unset($input['image']);
         }
+        $users = $student->user;
+
+        $users->name = $request->name;
+
+     $users->save();
 
         $student->update($input);
         return redirect()->route('students')
@@ -75,17 +80,20 @@ class StudentController extends Controller
     }
 
     public function destroy(Request $request,$id)
-    {
-        $student = Student::findOrFail($id);
+{
+    $student = Student::findOrFail($id);
+    $user = $student->user; // dapetin user sesuai student
 
-        if ($student->image) {
-            $this->deleteImage($student->image);
-        }
-
-        $student->delete($request->all());
-
-        return redirect()->back();
+    if ($student->image) {
+        $this->deleteImage($student->image);
     }
+
+    $student->delete($request->all());
+    $user->delete();
+
+
+    return redirect()->back();  
+}
     public function deleteImage($imageName)
     {
         $path = public_path('images/' . $imageName);

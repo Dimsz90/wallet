@@ -6,17 +6,16 @@
 </head>
 
 <body class="bg-white">
-    <div class="content px-3">
+    <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div >
-                    <P>
-                        <b>
-                            <h6 style="font-family: helvetica;">
-                                {{ config('app.name', 'Laravel') }}
-                            </h6>
+                <div>
+                    <h3>Laporan Tabungan<br>SMK AL-BAHRI</h3>
+                </div>
+                
                         </b>
-                    </P>
+        
+                    </p>
                 </div>
                 <u>
                     <h4 class="text-center" style="font-family: helvetica; font-size: 18pt;">Laporan Periode Tabungan</h4>
