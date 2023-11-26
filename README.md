@@ -23,5 +23,5 @@ To run tests, run the following command
 ```
 
 
-![Logo](https://pin.it/1qONt3H)
+![Logo](https://s3.getstickerpack.com/storage/uploads/sticker-pack/sticker-orang-niger/sticker_5.png?a5f72c8391a0288fd024687b66b3b109&d=200x200)
 
