@@ -56,6 +56,11 @@ class StudentController extends Controller
             'kelas' => 'required',
             'phone' => 'required',
         ]);
+       
+        $old_image_path = public_path('images/'.$student->image);
+        if(\File::exists($old_image_path)) {
+            \File::delete($old_image_path);
+        }
         $input = $request->all();
         if($image = $request->file('image')){
             $destinationPath = 'images/';
@@ -80,20 +85,26 @@ class StudentController extends Controller
     }
 
     public function destroy(Request $request,$id)
-{
-    $student = Student::findOrFail($id);
-    $user = $student->user; // dapetin user sesuai student
-
-    if ($student->image) {
-        $this->deleteImage($student->image);
+    {
+        $student = Student::findOrFail($id);
+        $user = $student->user; // dapetin user sesuai student
+    
+        if ($student->image) {
+            // Hapus gambar dari direktori
+            $image_path = public_path('images/'.$student->image);  // Value is not URL but directory file path
+            if(\File::exists($image_path)) {
+                \File::delete($image_path);
+            }
+        }
+    
+        $student->delete($request->all());
+    
+        // Hapus user setelah menghapus student
+        $user->delete();
+    
+        return redirect()->back();  
     }
-
-    $student->delete($request->all());
-    $user->delete();
-
-
-    return redirect()->back();  
-}
+    
     public function deleteImage($imageName)
     {
         $path = public_path('images/' . $imageName);

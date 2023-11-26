@@ -7,7 +7,10 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <h3>Student data table</h3>  <a href="{{route('students.create')}}" class="btn btn-secondary">Add New students</a>
+                    <h3>Student data table</h3>  
+                    
+                     <a href disabled="{{route('students.create')}}" class="btn btn-secondary" >Add New students</a>
+
                     <table class="table table-striped">
                         <thead>
                             <tr>

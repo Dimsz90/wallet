@@ -58,9 +58,10 @@
                                 <td>{{ $saving['nameM'] }}</td>
                                 <td>{{ number_format($saving['nominal']) }}</td>
                                 <td>
-                                    <a href="{{ route('savings.printById', $saving['id'] ) }}" class="btn btn-outline-primary">
+                                    <a href="{{ route('savings.printByName', $saving['name']) }}" class="btn btn-outline-primary">
                                         Print
                                     </a>
+                                    
                                 </td>
                             </tr>
                       

@@ -43,7 +43,7 @@ Route::group(['prefix', 'savings'], function(){
     route::post('store/{month}',[SavingController::class,'store'])->name('savings.store');
     Route::get('cetak', [SavingController::class,'cetak'])->name('savings.cetak');
     Route::get('/print', [SavingController::class, 'printPDF'])->name('savings.print');
-    Route::get('/savings/print/{id}', [SavingController::class, 'printPDFById'])->name('savings.printById');
+    Route::get('/savings/print/{name}', [SavingController::class, 'printByName'])->name('savings.printByName');
 
 
 });

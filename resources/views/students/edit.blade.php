@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Image</label>
-                            <input type="file" name="image" id="" class="form-control">
+                            <input type="file" name="image" id="" class="form-control" value="/images/{{ $student->image }}">
                             <img src="/images/{{ $student->image }}" width="300px">
                         </div>
                         <button type="submit" class="btn btn-info">Save</button>

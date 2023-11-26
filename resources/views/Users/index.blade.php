@@ -1,41 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .container {
-    font-family: Arial, sans-serif;
-}
 
-
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 54, 170, 0.2)2);
-    transition: 0.3s;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgb(255, 0, 0);
-}
-
-.table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.table th, .table td {
-    text-align: left;
-    padding: 8px;
-}
-
-.table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.table th {
-    background-color:   rgb(20, 126, 126);
-    color: white;
-}
-</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -52,8 +18,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="card border-0">
+        <div class="col-md-12" style="border-color:black">
+            <div class="card border-0" >
                 <div class="card-body">
                     <div class="mt-3 mb-3">
                         <div class="d-flex justify-content-end">

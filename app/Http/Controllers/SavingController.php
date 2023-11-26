@@ -66,46 +66,6 @@ class SavingController extends Controller
     }
     
 
-    public function printPDF(Request $request)
-    {
-        $dari_tgl = $request->input('dari_tgl');
-        $sampai_tgl = $request->input('sampai_tgl');
-    
-        $query = Saving::with(['student', 'month'])
-            ->orderBy('student_id')
-            ->orderBy('month_id');
-    
-        if ($dari_tgl && $sampai_tgl) {
-            $query->whereBetween('created_at', [$dari_tgl, $sampai_tgl]);
-        }
-    
-        $savings = $query->get()
-            ->groupBy(function($item){
-                return $item['student_id'] . '-' . $item['month_id'];
-            })
-            ->map(function ($group) {
-                $totalPayment = $group->sum(function ($saving) {
-                    return intval(str_replace('.', '', $saving->nominal));
-                });
-          
-                    return [
-                        'name' => $group->first()->student->user->name,
-                        'kelas' => $group->first()->student->kelas,
-                        'nameM' => $group->first()->month->name,
-                        'nominal' => $totalPayment,
-  
-                ];
-            })
-            ->values();
-    
-        $pdf = new TCPDF;
-        
-        
-        $pdf::SetTitle('Laporan Periode Tabungan');
-        $pdf::AddPage();
-        $pdf::writeHTML(view('savings.print', compact('savings'))->render());
-        $pdf::Output('savings.pdf', 'i');
-    }
     
     public function printPDFByid($student_id)
     {
@@ -137,11 +97,42 @@ class SavingController extends Controller
         $pdf::writeHTML(view('savings.printByid', compact('savings'))->render());
         $pdf::Output('saving.pdf', 'i');
     }
-    
-    
-    
+    public function printByName($name)
+    {
 
-  
+        $user = User::where('name', $name)->first();
+    
+        $savings = Saving::with(['student', 'month'])
+            ->whereHas('student', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get()
+            ->groupBy(function($item){
+              return $item['student_id'] . '-' . $item['month_id'];
+            })
+            ->map(function ($group) {
+                $totalPayment = $group->sum(function ($saving) {
+                    return intval(str_replace('.', '', $saving->nominal));
+                });
+                return [
+                    'id' => $group->first()->id,
+                    'name' => $group->first()->student->user->name,
+                    'kelas' => $group->first()->student->kelas,
+                    'nameM' => $group->first()->month->name,
+                    'nominal' => $totalPayment,
+                ];
+            })
+            ->values();
+    
+        // Buat PDF
+        $pdf = new TCPDF;
+        $pdf::SetTitle('Laporan Tabungan');
+        $pdf::AddPage();
+        $pdf::writeHTML(view('savings.printByName', compact('savings'))->render());
+        $pdf::Output('saving.pdf', 'i');
+    }
+
+
 }
 
 
