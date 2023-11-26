@@ -23,5 +23,5 @@ To run tests, run the following command
 ```
 
 
-![Logo](https://th.bing.com/th/id/OIP.ir92w4stK99LcOj_qAEIswAAAA?rs=1&pid=ImgDetMain)
+![Logo](https://pin.it/1qONt3H)
 
