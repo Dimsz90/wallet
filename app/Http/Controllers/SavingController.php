@@ -104,7 +104,7 @@ class SavingController extends Controller
     
         $savings = Saving::with(['student', 'month'])
             ->whereHas('student', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
+                $query->where('user_id', $user- >id);
             })
             ->get()
             ->groupBy(function($item){
