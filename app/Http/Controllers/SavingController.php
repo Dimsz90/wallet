@@ -67,35 +67,47 @@ class SavingController extends Controller
     
 
     
-    public function printPDFByid($student_id)
+    public function printPDF(Request $request)
     {
-        $savings = Saving::with(['student', 'month'])
-        ->where('student_id', $student_id) 
-        ->orderBy('student_id')
-        ->orderBy('month_id')
-        ->get()
-        ->groupBy(function($item){
-            return $item['student_id'] . '-' . $item['month_id'];
-        })
-        ->map(function ($group) {
-            $totalPayment = $group->sum(function ($saving) {
-                return intval(str_replace('.', '', $saving->nominal));
-            });
+        $dari_tgl = $request->input('dari_tgl');
+        $sampai_tgl = $request->input('sampai_tgl');
+    
+        $query = Saving::with(['student', 'month'])
+         ->whereHas('student')
+            ->orderBy('student_id')
+            ->orderBy('month_id');
+    
+        if ($dari_tgl && $sampai_tgl) {
+            $query->whereBetween('created_at', [$dari_tgl, $sampai_tgl]);
+        }
+    
+        $savings = $query->get()
+            ->groupBy(function($item){
+                return $item['student_id'] . '-' . $item['month_id'] ;
+            })
+            ->map(function ($group) {
+                $totalPayment = $group->sum(function ($saving) {
+                    return intval(str_replace('.', '', $saving->nominal));
+                });
                 return [
-                    'id' => $group->first()->id,
                     'name' => $group->first()->student->user->name,
                     'kelas' => $group->first()->student->kelas,
                     'nameM' => $group->first()->month->name,
                     'nominal' => $totalPayment,
 
-            ];
-        })
-        ->values();
+                  
+                ];
+            })
+            ->values();
+
         $pdf = new TCPDF;
-        $pdf::SetTitle('Laporan Tabungan');
+
+        $pdf::SetFont('helvetica', '', 12);
+
+        $pdf::SetTitle('Laporan Periode Tabungan');
         $pdf::AddPage();
-        $pdf::writeHTML(view('savings.printByid', compact('savings'))->render());
-        $pdf::Output('saving.pdf', 'i');
+        $pdf::writeHTML(view('savings.print', compact('savings'))->render());
+        $pdf::Output('savings.pdf', 'i');
     }
     public function printByName($name)
     {
@@ -104,7 +116,7 @@ class SavingController extends Controller
     
         $savings = Saving::with(['student', 'month'])
             ->whereHas('student', function ($query) use ($user) {
-                $query->where('user_id', $user- >id);
+                $query->where('user_id', $user->id);
             })
             ->get()
             ->groupBy(function($item){

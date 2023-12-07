@@ -9,10 +9,15 @@
     <div class="content px-3">
         <div class="row">
             <div class="col-md-12">
-
-                <u>
-                    <h4 class="text-center" style="font-family: helvetica; font-size: 18pt;">'Laporan Periode Tabungan</h4>
-                </u>
+                <div>
+                    <h3>Laporan Tabungan<br>SMK AL-BAHRI</h3>
+                </div>
+           
+                    <h4 class="text-center" style="font-family: helvetica; font-size: 18pt;">
+                        Laporan Periode Tabungan
+                    </h4>
+                    
+               
 
                 <table class="table table-striped" style="border: 1,5px solid #000000;">
                     <thead>

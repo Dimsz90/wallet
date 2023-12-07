@@ -38,23 +38,33 @@
                                 <th>Alamat</th>
                                 <th>phone</th>
                                 <th>Akses</th>
-                                <th>Options</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
                                 <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
+                                    <td>  <a href="{{route('users.edit' ,  $user->id)  }}" class="btn btn-outline-primary">
+
+                                        {{$user->name}}
+                                    </a></td>
+
+                                    <td>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Yakin?')">
+                                                {{$user->email}}
+                                            </button>
+                                        </form> 
+                                    </td>
                                     @foreach ($user->students as $item)
                                         <td>{{$item->kelas}}</td>
                                         <td>{{$item->alamat}}</td>
                                         <td>{{$item->phone}}</td>
                                     @endforeach
                                     <td>{{$user->roles->implode('name', ', ')}}</td>
-                                    <td>
-                                        
-                                    </td>
+                                  
                                 </tr>
                             @empty
                                 <tr>

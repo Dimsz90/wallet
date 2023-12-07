@@ -171,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -186,7 +187,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ])->toArray(),
 

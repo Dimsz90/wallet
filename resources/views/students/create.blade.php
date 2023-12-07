@@ -7,6 +7,18 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Form create </h3>
+                    <!-- Tambahkan ini untuk menampilkan pesan sukses -->
+                    @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
+                    </div>
+                    @endif
+                    <!-- Tambahkan ini untuk menampilkan pesan error -->
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger">
+                        {{Session::get('error')}}
+                    </div>
+                    @endif
                     <form action="{{route('students.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

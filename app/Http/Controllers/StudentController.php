@@ -57,9 +57,9 @@ class StudentController extends Controller
             'phone' => 'required',
         ]);
        
-        $old_image_path = public_path('images/'.$student->image);
-        if(\File::exists($old_image_path)) {
-            \File::delete($old_image_path);
+        $old_image = public_path('images/'. $student->image);
+        if(\File::exists($old_image)) {
+            \File::delete($old_image);
         }
         $input = $request->all();
         if($image = $request->file('image')){
@@ -99,19 +99,10 @@ class StudentController extends Controller
     
         $student->delete($request->all());
     
-        // Hapus user setelah menghapus student
         $user->delete();
     
         return redirect()->back();  
     }
     
-    public function deleteImage($imageName)
-    {
-        $path = public_path('images/' . $imageName);
-
-        if (file_exists($path)) {
-            unlink($path);
-
-        }
-    }
+  
 }

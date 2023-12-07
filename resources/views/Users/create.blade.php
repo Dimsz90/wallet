@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
+@include('sweetalert::alert')
+<link rel="stylesheet" href="croppie.css" />
+<script src="croppie.js"></script>
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card border-0 shadow">
@@ -50,8 +52,9 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
-                                <input type="file" name="image" placeholder="Kelas" class="form-control" required>
-                            </div>
+                                <input type="file" id="image" name="image" placeholder="Kelas" class="form-control" required>
+                               
+                              </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
@@ -75,7 +78,6 @@
                                 <g id="SVGRepo_iconCarrier">
                                 
                                 <path id="secondary" d="M19,8a1,1,0,0,1-1-1V6H17a1,1,0,0,1,0-2h1V3a1,1,0,0,1,2,0V4h1a1,1,0,0,1,0,2H20V7A1,1,0,0,1,19,8Z" style="fill: #2ca9bc;"/>
-                                
                                 <path id="primary" d="M14.9,12.55A6,6,0,0,0,17,8.5a4.5,4.5,0,0,1-2.47-4,4.45,4.45,0,0,1,.19-1.22A6,6,0,0,0,7.1,12.55,8,8,0,0,0,2,20a2,2,0,0,0,2,2H18a2,2,0,0,0,2-2A8,8,0,0,0,14.9,12.55Z" style="fill: #000000;"/>
                                 
                                 </g>
@@ -93,11 +95,20 @@
         </ul>
     </div>
 @endif
-                </form>
+              </form>
             </div>
         </div>
     </div>
 </div>
+<style>
+    /* Make sure the size of the image fits perfectly into the container */
+img {
+  display: block;
+
+  /* This rule is very important, please don't ignore this */
+  max-width: 100%;
+}
+</style>
 
 @endsection
 

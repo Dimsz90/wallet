@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         // Bendahara
         $bendahara = User::factory()->create([
 
-            'name'     => 'Nama Bendahara',
+            'name'     => 'GO YOUN JUNG',
             'email'    => 'bendahara@smkalbahri.com',
             'email_verified_at' => now(),
             'password' => bcrypt('smkalbahri'),
@@ -39,7 +39,7 @@ if($bendahara->save()){
         $this->command->warn($bendahara->email);
         $this->command->warn('Password is "smkalbahri"');
 
-        // bersihkan cache
+       
         $this->command->call('cache:clear');
     }
 }

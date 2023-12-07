@@ -24,7 +24,7 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware groups.
+ * The application's route middleware groups.
      *
      * @var array<string, array<int, class-string|string>>
      */
@@ -36,14 +36,18 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+           
+
         ],
+        
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-    ];
+      
+];
 
     /**
      * The application's middleware aliases.
@@ -64,5 +68,11 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        
+    ];
+
+    protected $routeMiddleware = [
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+
     ];
 }

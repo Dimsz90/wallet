@@ -62,7 +62,89 @@
             $user->assignRole($role->name);
 
         
-            return redirect()->back()->with('flash', 'data siswa berhasil ditabahkan');
+            $success = $user && $student;
+            if ($success) {
+                return redirect()->back()->withSuccess('User berhasil dibuat');
+            } else {
+                return redirect()->back()->withError('Terjadi kesalahan saat membuat user');
+            }
         }
+        public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+
+        return view('users.edit', compact('user','roles'));
+    }
+    
+        public function update(Request $request, $id)
+        {
+            $user = User::findOrFail($id);
+    
+            $validatedData = $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|email',
+                'kelas' => 'required',
+                'alamat' => 'required',
+                'phone' => 'required',
+                'image' => 'nullable'
+               
+            ]);
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            
+
+            foreach ($user->students as $student) {
+                $student->kelas = $request->kelas;
+                $student->alamat = $request->alamat;
+                $student->phone = $request->phone;
+                $user->roles()->sync($request->roles);
+        
+                $old_image = public_path('images/'. $student->image);
+                if(\File::exists($old_image)) {
+                    \File::delete($old_image);
+                }
+                $input = $request->all();
+                
+                if ($image = $request->file('image')){
+                    $destinationPath = 'images/';
+        
+                    $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        
+                    $image->move($destinationPath, $profileImage);
+        
+                    $input['image'] = $profileImage;
+                }else{
+                    unset($input['image']);
+                }
+                $user->save();
+                $student->save();
+                $student->update($input);
+            }
+    
+            return redirect()->route('users')->with('success', 'User updated successfully');
+        }
+    
+    
+        public function destroy($id)
+{
+    $user = User::findOrFail($id);
+
+    foreach ($user->students as $student) {
+        $student->delete();
+    }
+    if ($student->image) {
+        $image_path = public_path('images/'.$student->image);  // Value is not URL but directory file path
+        if(\File::exists($image_path)) {
+            \File::delete($image_path);
+        }
+    }
+    
+    $user->delete();
+
+    return redirect()->back();
+}
+
     }
 

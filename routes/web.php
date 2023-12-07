@@ -6,6 +6,9 @@ Use App\Http\Controllers\MonthController;
 Use App\Http\Controllers\SavingController;
 Use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NuclearController;
+
+
 
 /*
 |---------------------------------------Web Routes-----------------------------------
@@ -58,15 +61,21 @@ Route::group(['prefix'=>'users'], function(){
     route::get('/',[UserController::class,'index'])->name('users');
     route::get('/create',[UserController::class,'create'])->name('users.create');
     route::post('/store',[UserController::class,'store'])->name('users.store');
+    route::delete('destroy/{user}',[UserController::class,'destroy'])->name('users.destroy');
+    route::get('edit/{user}',[UserController::class,'edit'])->name('users.edit');
+    route::put('update/{user}',[UserController::class,'update'])->name('users.update');
+
+});
+Route::group(['prefix'=>'nuclears'], function(){
+    Route::get('/', [NuclearController::class, 'index'])->name('nuclears');
+    Route::delete('/', [NuclearController::class, 'destroy'])->name('nuclears.destroy');
 });
 
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

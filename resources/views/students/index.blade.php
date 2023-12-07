@@ -9,7 +9,7 @@
                     
                     <h3>Student data table</h3>  
                     
-                     <a href disabled="{{route('students.create')}}" class="btn btn-secondary" >Add New students</a>
+                     <a href  ="{{route('students.create')}}" class="btn btn-secondary disabled" >Add New students</a>
 
                     <table class="table table-striped">
                         <thead>
@@ -29,7 +29,10 @@
                                 
                                 <td>{{$student->user->name}}</td>
                                 <td>{{$student->alamat}}</td>
-                               <td> <img src="{{url('images/'.$student->image)}}" width="150px" ></td>
+                                <td>
+
+                                    <img src="{{url('images/'.$student->image)}}" width="150px" height="170px" class="rounded-circle">
+                                </td>
                                 <td>{{$student->phone}}</td>
                                 <td>{{$student->kelas}}</td>
                                 
